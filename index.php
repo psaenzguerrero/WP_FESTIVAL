@@ -1,6 +1,6 @@
 <?php get_header(); ?>
     <main class="main">
-
+        <!-- Inicio Presentaciones -->
             <?php 
                 $presentacionboll = get_field('page_options_presentacion_mostrar_seccion', 'option'); 
                 if($presentacionboll == 1) {
@@ -159,7 +159,7 @@
             <?php
                 }
             ?>
-
+        <!-- Estadisticas de eventos -->
             <?php
             
                 $estadisticas = get_field('page_options_estadisticas_mostrar_seccion', 'option');
@@ -208,7 +208,7 @@
             <?php
                 }
             ?>
-
+        <!-- Djs de eventos -->
             <?php
                 $djs = get_field('page_options_djs_mostrar_seccion', 'option');
 
@@ -261,7 +261,7 @@
                             </div>
                             <div class="col-md-3 text-center text-md-end order-0 djs__information">
                                 <?php if ( get_field('page_options_djs_titulo', 'option') ) : ?>
-                                    <h2 class="title title--black"><?php echo get_field('page_options_djs_titulo', 'option'); ?></h2>
+                                    <h2 class="title2 title--black"><?php echo get_field('page_options_djs_titulo', 'option'); ?></h2>
                                 <?php endif; ?>
                                 <?php if ( get_field('page_options_djs_descripcion', 'option') ) : ?>
                                     <p><?php echo get_field('page_options_djs_descripcion', 'option'); ?></p>
@@ -286,285 +286,109 @@
                 }
             ?>
         
-        <!-- <section class="presentations section sectionBorder " 
-            <?php if ( get_field('page_options_presentaciones_fondo', 'option') ) : ?>
-                style="background-image: url('<?php echo get_field('page_options_presentaciones_fondo','option'); ?>');"
-            <?php endif; ?>
-        >
-            <article class="container">
-                <?php if ( get_field('page_options_presentaciones_titulo', 'option') ) : ?>
-                    <h2 class="title"><?php echo get_field('page_options_presentaciones_titulo', 'option'); ?></h2>
-                <?php endif; ?>
-                
-                <?php if ( get_field('page_options_presentaciones_descripcion', 'option') ) : ?>
-                    <p><?php echo get_field('page_options_presentaciones_descripcion', 'option'); ?></p>
-                <?php endif; ?>
+        <?php 
+            $tickets = get_field('page_options_tickets_mostrar_seccion', 'option');
+            if ( $tickets == 1) {   
+        ?>
 
-                <div class="row presentations__details mt-5">
-                    <div class="presentations__details--title col col-md-2">Hora</div>
-                    <div class="presentations__details--title col col-md-2">DJs</div>
-                    <div class="presentations__details--title col col-md-3 d-none"></div>
-                    <div class="presentations__details--title col col-md-2 d-none">Escenario</div>
-                    <div class="presentations__details--title col col-md-3">Ticket</div>
-                </div>
-                <div class="row presentations__details mt-3 align-items-center">
-                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-5.jpg" alt="" class="img-fluid">
+            <section class="tickets">
+                <article class="container">
+                    <?php if ( get_field('page_options_tickets_titulo', 'option') ) : ?>      
+                        <h2 class="title"><?php echo get_field('page_options_tickets_titulo', 'option'); ?></h2>
+                    <?php endif; ?>
+                    <?php if ( get_field('page_options_descripcion_tickects', 'option') ) : ?>      
+                        <p class="subtitle"><?php echo get_field('page_options_descripcion_tickects', 'option'); ?></p>
+                    <?php endif; ?>
+                    <div class="row">
+                        <?php
+
+                            $args = array( 
+                                'post_type' => 'tickets',
+                                'post_per_page'=> 3
+                            );
+                            $the_query = new WP_Query( $args );
+
+                            if ( $the_query->have_posts() ) {
+                                $flag = 1;
+                                while ( $the_query->have_posts() ) {
+                                    $the_query->the_post();
+                        ?>
+                                    <div class="col tickets__price 
+                                    <?php if ($flag == 1) { echo "ms-lg-0"; } elseif ($flag == 3) { echo "me-lg-0"; }else{ echo ""; } ?> ">
+                                        <ul class="list-unstyled d-flex justify-content-center text-left tickets__value">
+                                            <?php 
+                                                $puntuacion = get_field('ticket_puntuacion');
+                                                for ($i=0; $i < $puntuacion; $i++) { 
+                                            ?>
+                                                    <li class="tickets__value--only"><img src="<?php the_field('ticket_icono'); ?>" alt="l"></li>
+                                            <?php
+                                                }  
+                                            ?>
+                                        </ul>
+
+                                        <h4 class="text-uppercase <?php if ($flag == 1) { echo " text--red"; } elseif ($flag == 3) { echo " text--purple"; }else{ echo " text--pink"; } ?>"><?php the_title(); ?></h4>
+                                        
+                                        <?php if ( get_field('tickets_descripcion') ) : ?>
+                                            <p><?php  the_field('tickets_descripcion'); ?></p>
+                                        <?php endif; ?>
+                                        
+                                        <span class="tickets__number">
+                                            <?php if ( get_field('tickets_precio') ) : ?>
+                                                    <?php the_field('tickets_precio'); ?>
+                                                <?php else: ?>
+                                                    0
+                                            <?php endif; ?>    
+                                        </span>
+                                        <ul class="list-unstyled list-square text-left">
+                                            
+                                            <?php if ( have_rows('ticket_caracteristicas') ) : ?>
+                                            
+                                                <?php while( have_rows('ticket_caracteristicas') ) : the_row(); ?>
+                                            
+                                                    <li><?php the_sub_field('ticket_rp_item'); ?></li>
+                                            
+                                                <?php endwhile; ?>
+                                            
+                                            <?php endif; ?>
+                                            
+                                            
+                                        </ul>
+                                        <a href="<?php the_field('ticket_link_pagar')?>"  class="btn btn-primary">Comprar</a>
+                                    </div>
+                        <?php
+                                $flag++;
+                                }
+                                wp_reset_postdata(); 
+                            }else{
+                                echo 'No hay tickets';
+                            }
+                               
+                        ?>
+                        
+                        
                     </div>
-                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                    <div class="col col-md-3 presentations__details--information d-flex">
-                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                        <a href="#" class="btn btn-primary">Tickets</a>
-                    </div>
-                </div>
-                <div class="row presentations__details mt-3 align-items-center">
-                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-6.jpg" alt="" class="img-fluid">
-                    </div>
-                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                    <div class="col col-md-3 presentations__details--information d-flex">
-                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                        <a href="#" class="btn btn-primary">Tickets</a>
-                    </div>
-                </div>
-                <div class="row presentations__details mt-3 align-items-center">
-                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-2.jpg" alt="" class="img-fluid">
-                    </div>
-                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                    <div class="col col-md-3 presentations__details--information d-flex">
-                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                        <a href="#" class="btn btn-primary">Tickets</a>
-                    </div>
-                </div>
-                <div class="row presentations__details mt-3 align-items-center">
-                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj1.jpeg" alt="" class="img-fluid">
-                    </div>
-                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                    <div class="col col-md-3 presentations__details--information d-flex">
-                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                        <a href="#" class="btn btn-primary">Tickets</a>
-                    </div>
-                </div>
-                <div class="row presentations__details mt-3 align-items-center">
-                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-3.jpg" alt="" class="img-fluid">
-                    </div>
-                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                    <div class="col col-md-3 presentations__details--information d-flex">
-                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                        <a href="#" class="btn btn-primary">Tickets</a>
-                    </div>
-                </div>
-                <div class="row mt-5 d-flex justify-content-center ">
-                    <a href="#" class="btn btn-primary botonV">Ver Todos</a>
-                </div>
-            </article>
-        </section> -->
-        <!-- <section class="numberEvents d-none d-lg-block">
-            <div class="container">
-                <div class="row flex-row  justify-content-around align-items-center text-center">
-                    <div class="numberEvents__item">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/lights.png" alt="">
-                        <h6>2000</h6>
-                        <h5>Luces Increibles</h5>
-                    </div>
-                    <div class="numberEvents__item">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/djs.png" alt="">
-                        <h6>12</h6>
-                        <h5>Djs Top Mundial</h5>
-                    </div>
-                    <div class="numberEvents__item">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/musica.png" alt="">
-                        <h6>1000</h6>
-                        <h5>Horas de Música</h5>
-                    </div>
-                    <div class="numberEvents__item">
-                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/people.png" alt="">
-                        <h6>10000</h6>
-                        <h5>Asistentes</h5>
-                    </div>
-                </div>
-        </section> -->
-        <!-- <section class="djs  sectionBorder--top sectionBorder--bottom">
-            <article class="container">
-                <div class="row">
-                    <div class="col-md-9 pl-0 order-1 order-md-0">
-                        <ul class="list-unstyled djs__gallery">
-                            <li>
-                                <figure>
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-5.jpg" class="img-fluid" alt="">
-                                    <figcaption>
-                                        <h5 class="djs__name">DJ Alexio</h5>
-                                        <h6 class="djs__type">Electro Hop</h6>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-6.jpg" class="img-fluid" alt="">
-                                    <figcaption>
-                                        <h5 class="djs__name">DJ Alexio</h5>
-                                        <h6 class="djs__type">Electro Hop</h6>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-2.jpg" class="img-fluid" alt="">
-                                    <figcaption>
-                                        <h5 class="djs__name">DJ Alexio</h5>
-                                        <h6 class="djs__type">Electro Hop</h6>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj1.jpeg" class="img-fluid" alt="">
-                                    <figcaption>
-                                        <h5 class="djs__name">DJ Alexio</h5>
-                                        <h6 class="djs__type">Electro Hop</h6>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj1.jpeg" class="img-fluid" alt="">
-                                    <figcaption>
-                                        <h5 class="djs__name">DJ Alexio</h5>
-                                        <h6 class="djs__type">Electro Hop</h6>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-3.jpg" class="img-fluid" alt="">
-                                    <figcaption>
-                                        <h5 class="djs__name">DJ Alexio</h5>
-                                        <h6 class="djs__type">Electro Hop</h6>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj1.jpeg" class="img-fluid" alt="">
-                                    <figcaption>
-                                        <h5 class="djs__name">DJ Alexio</h5>
-                                        <h6 class="djs__type">Electro Hop</h6>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                            <li>
-                                <figure>
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj1.jpeg" class="img-fluid" alt="">
-                                    <figcaption>
-                                        <h5 class="djs__name">DJ Alexio</h5>
-                                        <h6 class="djs__type">Electro Hop</h6>
-                                    </figcaption>
-                                </figure>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 text-center text-md-end order-0 order-md-1 djs__information">
-                        <h2 class="title title--black">
-                            djs
-                        </h2>
-                        <p>Ellos son el verdadero foco de atención de nuestro evento</p>
-                        <ul class="list-unstyled d-flex justify-content-center justify-content-md-end">
-                            <li class="mr-2">
-                                <a href="javascript:void(0)" class="JS-slick-prev"><img src="<?php bloginfo('template_directory'); ?>/assets/img/flechaZ.png" alt=""></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="JS-slick-next"><img src="<?php bloginfo('template_directory'); ?>/assets/img/flechaD.png" alt=""></a>
-                            </li>
-                        </ul>
-                        <a href="#" class="btn btn-primary d-none d-md-inline-block btn-lg mt-5">Ver Todos </a>
-                    </div>
-                </div>
-            </article>
-        </section> -->
-        <section class="tickets">
-            <article class="container">
-                <h2 class="title">Tickets</h2>
-                <p class="subtitle">Tenemos varias opciones para todos los gustos, consigue una que se adapte a ti.</p>
-                <div class="row">
-                    <div class="col tickets__price">
-                        <ul class="list-unstyled d-flex justify-content-center tickets__value">
-                            <li class="tickets__value--only"><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                        </ul>
-                        <h4 class="text-uppercase text--red">bpm</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In quia facere quas accusantium
-                            architecto.</p>
-                        <span class="tickets__number">40</span>
-                        <ul class="list-unstyled list-square text-left">
-                            <li>Escenario Principal</li>
-                            <li>Camiseta - 1 Bebida</li>
-                            <li>Acceso Zonas Comunes</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary">Comprar</a>
-                    </div>
-                    <div class="col tickets__price">
-                        <ul class="list-unstyled d-flex justify-content-center tickets__value">
-                            <li><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                            <li><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                            <li><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                        </ul>
-                        <h4 class="text-uppercase text--pink">echo</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In quia facere quas accusantium
-                            architecto.</p>
-                        <span class="tickets__number">40</span>
-                        <ul class="list-unstyled list-square text-left">
-                            <li>Escenario Principal</li>
-                            <li>Camiseta - 1 Bebida</li>
-                            <li>Acceso Zonas Comunes</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary">Comprar</a>
-                    </div>
-                    <div class="col tickets__price">
-                        <ul class="list-unstyled d-flex justify-content-center tickets__value">
-                            <li><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                            <li><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                            <li><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                            <li><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                            <li><img src="<?php bloginfo('template_directory'); ?>/assets/img/vip-pass 1.png" alt="l"></li>
-                        </ul>
-                        <h4 class="text-uppercase text--purple">loop</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In quia facere quas accusantium
-                            architecto.</p>
-                        <span class="tickets__number">40</span>
-                        <ul class="list-unstyled list-square text-left">
-                            <li>Escenario Principal</li>
-                            <li>Camiseta - 1 Bebida</li>
-                            <li>Acceso Zonas Comunes</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary">Comprar</a>
-                    </div>
-                </div>
-            </article>
-        </section>
+                </article>
+            </section>
+
+        <?php
+
+            } 
+        ?>
+        
+
+        
         <section class="sponsors">
             <article class="container">
-                <h2 class="title text-md-end">Patrocinadores</h2>
+                <h2 class="title3 text-md-end">Patrocinadores</h2>
                 <div class="row">
                     <div class="col-md-10 order-1 order-md-0">
                         <div class="sponsors__gallery">
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_01.png" alt="" class="img-fluid"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_02.png" alt="" class="img-fluid"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_03.png" alt="" class="img-fluid"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_04.png" alt="" class="img-fluid"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_05.png" alt="" class="img-fluid"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_06.png" alt="" class="img-fluid"></div>
+                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_01.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_02.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_03.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_04.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_05.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_06.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -652,9 +476,9 @@
                     </div>
                 </div>
         </section>
-        <section class="news d-none d-md-block"> 
+        <section class="news d-none d-md-block pb-5"> 
             <div class="container">
-                <h2 class="title title--white title--small text-md-end">Noticias</h2>
+                <h2 class="title3 title--white title--small text-md-end">Noticias</h2>
                 <div class="row">
                     <div class="col-6">
                         <article class="news__item">

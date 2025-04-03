@@ -21,7 +21,7 @@
                     
 
                 </div>
-                <div class="col-md-6 d-none d-md-block">
+                <div class="col-md-6 d-none d-md-block mx-0 px-0">
                     <img src="<?php bloginfo('template_directory'); ?>/assets/img/mapa.png" alt="" class="img-fluid w-100">
                 </div>
             </div>

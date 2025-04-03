@@ -192,7 +192,7 @@ img{
 }
 
 .header__meta li {
-    margin-right: 200px;
+    margin-right: 150px;
 }
 
 .header__meta li:first-child {
@@ -303,17 +303,53 @@ img{
     font-size: 3rem;
     margin-bottom: 1.5rem;
 }
+.title2 {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+.title3 {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
 
 .subtitle{
     color:var(--secundary-color)
 }
-.title:after{
+.title:after {
     max-width: 170px;
     width: 100%;
     background-color: var(--main-bg-color);
     height: 4px;
     content: "";
     display: block;
+}
+.title2:after {
+    max-width: 100px;
+    width: 100%;
+    background-color: var(--main-bg-color);
+    height: 4px;
+    content: "";
+    display: block;
+    position: relative; /* Change to 'absolute', 'fixed', or 'static' as needed */
+    top: 0; /* Adjust vertical position */
+    left: 33%; /* Adjust horizontal position */
+    margin: auto; /* Center if needed */
+}
+.title3:after {
+    max-width: 260px;
+    width: 100%;
+    background-color: var(--main-bg-color);
+    height: 4px;
+    content: "";
+    display: block;
+    position: relative; /* Change to 'absolute', 'fixed', or 'static' as needed */
+    top: 0; /* Adjust vertical position */
+    left: 40%; /* Adjust horizontal position */
+    margin: auto; /* Center if needed */
 }
 .botonV{
     width: 20%;
@@ -374,6 +410,13 @@ img{
     width: 300px;
     height: 350px;
 }
+@media screen and (max-width:768px){
+    .djs__gallery img{
+        width: 100%;
+        height: auto;
+    }
+    
+}
 
 .djs__gallery li{
     margin-right: 30px;
@@ -402,6 +445,11 @@ img{
     background-color: var(--blue-color);
     color: var(--white-color);
     padding-top: var(--padding-section); padding-bottom: var(--padding-section);
+    
+}
+
+.tickets .subtitle{
+    width: 40%;
 }
 
 .tickets__price{
@@ -409,14 +457,26 @@ img{
     padding:calc( var(--padding-section) - 3rem);
     margin:calc( var(--padding-section) - 4rem );
     transition: all 0.3s ease-in-out;
-    text-align: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
 }
 .tickets__price:hover{
     background-color: var(--blue-color);
     border: 1px dashed #24243C;
+    transform: perspective(400px) rotateY(5deg);
+}
+.tickets__price > p{
+    text-align: center;
+}
+.tickets__price ul:nth-child(2){
+    text-align: start;
+    width: 60%;
 }
 .tickets__value li{
     margin-right: 10px;
+    text-align: left;
 }
 .tickets__value li.tickets__value--only{
     margin-right: 0;
@@ -758,7 +818,7 @@ img{
 .djs__centerMobile{
     margin-left:auto;
     margin-right: auto;
-    max-width:300px;
+    max-width:600px;
 }
     @media screen and (min-width:768px){
         .djs__centerMobile{
