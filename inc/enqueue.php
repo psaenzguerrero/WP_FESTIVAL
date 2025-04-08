@@ -11,7 +11,7 @@
 
         wp_enqueue_style( 'Slick Theme', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css', array(), '1.8.1', 'all' );
         
-        wp_enqueue_style( 'Main', get_template_directory_uri() . '/assets/css/main.css', array(), '1.2.6', 'all' );
+        wp_enqueue_style( 'Main', get_template_directory_uri() . '/assets/css/main.css', array(), '1.2.7', 'all' );
 
         // Parte de js de enlaces externos
         wp_enqueue_script( 'Popper', get_template_directory_uri() . '/assets/js/popper.min.js', array( 'jquery' ), "2020", true );

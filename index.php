@@ -5,11 +5,7 @@
                 $presentacionboll = get_field('page_options_presentacion_mostrar_seccion', 'option'); 
                 if($presentacionboll == 1) {
             ?>
-                        <section class="presentations section sectionBorder " 
-                            <?php if ( get_field('page_options_presentaciones_fondo', 'option') ) : ?>
-                                style="background-image: url('<?php echo get_field('page_options_presentaciones_fondo','option'); ?>');"
-                            <?php endif; ?>
-                        >
+                        <section class="presentations section sectionBorder "<?php if ( get_field('page_options_presentaciones_fondo', 'option') ) : ?> style="background-image: url('<?php echo get_field('page_options_presentaciones_fondo','option'); ?>');"<?php endif; ?>>
                             <article class="container">
                                 <?php if ( get_field('page_options_presentaciones_titulo', 'option') ) : ?>
                                     <h2 class="title"><?php echo get_field('page_options_presentaciones_titulo', 'option'); ?></h2>
@@ -46,7 +42,7 @@
                                                 <div class="col col-md-2 presentations__details--information"><?php the_title(); ?></div>
                                                 <div class="col col-md-3 presentations__details--information d-none d-lg-block">
 
-                                                    <!-- <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-5.jpg" alt="" class="img-fluid"> -->
+    
                                                     <?php
                                                     if (has_post_thumbnail()) {
                                                         the_post_thumbnail('full', array('class' => 'img-fluid'));
@@ -90,66 +86,6 @@
                                     }
                                 
                                 ?>
-                                <!-- <div class="row presentations__details mt-3 align-items-center">
-                                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-5.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                                    <div class="col col-md-3 presentations__details--information d-flex">
-                                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                                        <a href="#" class="btn btn-primary">Tickets</a>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="row presentations__details mt-3 align-items-center">
-                                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-6.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                                    <div class="col col-md-3 presentations__details--information d-flex">
-                                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                                        <a href="#" class="btn btn-primary">Tickets</a>
-                                    </div>
-                                </div>
-                                <div class="row presentations__details mt-3 align-items-center">
-                                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-2.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                                    <div class="col col-md-3 presentations__details--information d-flex">
-                                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                                        <a href="#" class="btn btn-primary">Tickets</a>
-                                    </div>
-                                </div>
-                                <div class="row presentations__details mt-3 align-items-center">
-                                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj1.jpeg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                                    <div class="col col-md-3 presentations__details--information d-flex">
-                                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                                        <a href="#" class="btn btn-primary">Tickets</a>
-                                    </div>
-                                </div>
-                                <div class="row presentations__details mt-3 align-items-center">
-                                    <div class="col col-md-2 presentations__details--information">22:00</div>
-                                    <div class="col col-md-2 presentations__details--information">DJ Monza</div>
-                                    <div class="col col-md-3 presentations__details--information d-none d-lg-block">
-                                        <img src="<?php bloginfo('template_directory'); ?>/assets/img/dj-3.jpg" alt="" class="img-fluid">
-                                    </div>
-                                    <div class="col col-md-2 presentations__details--information d-none d-lg-block">Principal</div>
-                                    <div class="col col-md-3 presentations__details--information d-flex">
-                                        <a href="#" class="btn btn-primary d-none d-lg-block">Detalles</a>
-                                        <a href="#" class="btn btn-primary">Tickets</a>
-                                    </div>
-                                </div> -->
 
                                 <div class="row mt-5 d-flex justify-content-center ">
                                     <a href="#" class="btn btn-primary botonV">Ver Todos</a>
@@ -375,36 +311,44 @@
             } 
         ?>
         
-
-        
-        <section class="sponsors">
-            <article class="container">
-                <h2 class="title3 text-md-end">Patrocinadores</h2>
-                <div class="row">
-                    <div class="col-md-10 order-1 order-md-0">
-                        <div class="sponsors__gallery">
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_01.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_02.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_03.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_04.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_05.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
-                            <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_06.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <ul class="d-flex list-unstyled justify-content-center justify-content-md-end mb-4">
-                            <li class="mr-2">
-                                <a href="javascript:void(0);" class="JS-slickSponsor-prev">
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/flechaZ.png" alt="" class=""></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="JS-slickSponsor-next">
-                                    <img src="<?php bloginfo('template_directory'); ?>/assets/img/flechaD.png" alt=""></a>
-                            </li>
-                        </ul>
-                    </div>
-            </article>
-        </section>
+        <?php 
+            $patrocinadores = get_field('page_options_patrocinadores_mostrar_seccion', 'option');
+            if ( $patrocinadores == 1) {
+        ?>
+                <section class="sponsors" style="background-image: url('<?php echo get_field('page_options_patrocinadores_fondo','option'); ?>');">
+                    <article class="container">
+                        <h2 class="title3 text-md-end"><?php if ( get_field('page_options_patrocinadores_titulo', 'option') ) : ?>
+                            <?php echo get_field('page_options_patrocinadores_titulo', 'option'); ?>
+                            <?php else: echo 'Patrocinadores'; endif; ?></h2>
+                        </h2>
+                        <div class="row">
+                            <div class="col-md-10 order-1 order-md-0">
+                                <div class="sponsors__gallery">
+                                    <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_01.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                                    <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_02.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                                    <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_03.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                                    <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_04.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                                    <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_05.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                                    <div><img src="<?php bloginfo('template_directory'); ?>/assets/img/sponsor_logo_06.png" alt="" class="img-fluid" style="border: 2px solid white;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <ul class="d-flex list-unstyled justify-content-center justify-content-md-end mb-4">
+                                    <li class="mr-2">
+                                        <a href="javascript:void(0);" class="JS-slickSponsor-prev">
+                                            <img src="<?php bloginfo('template_directory'); ?>/assets/img/flechaZ.png" alt="" class=""></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="JS-slickSponsor-next">
+                                            <img src="<?php bloginfo('template_directory'); ?>/assets/img/flechaD.png" alt=""></a>
+                                    </li>
+                                </ul>
+                            </div>
+                    </article>
+                </section>
+        <?php
+            }
+        ?>
         <section class="gallery sectionBorder--top sectionBorder--bottom">
             <header class="container ">
                 <h2 class="title title--black">Galeria de imagenes</h2>

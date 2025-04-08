@@ -316,6 +316,7 @@ img{
     margin-bottom: 1.5rem;
 }
 
+
 .subtitle{
     color:var(--secundary-color)
 }
@@ -351,8 +352,38 @@ img{
     left: 40%; /* Adjust horizontal position */
     margin: auto; /* Center if needed */
 }
+
+@media screen and (max-width: 768px) {
+    .title ::after{
+        left: 0;
+        margin: auto;
+        top: 0;
+        right: 0;
+    }
+    .title2::after {
+        left: 0;
+        margin: auto;
+        top: 0;
+        right: 0;
+    }
+    .title3::after {
+        left: 0;
+        margin: auto;
+        top: 0;
+        right: 0;
+    }
+    
+}
+
 .botonV{
     width: 20%;
+}
+
+@media screen and (max-width: 768px) {
+    .botonV{
+        width: 80%;
+    }
+    
 }
 .sectionBorder--top:before{
     position: absolute;
@@ -402,9 +433,7 @@ img{
     padding-bottom: var(--padding-section);
 }
 
-.djs__gallery{
-    
-}
+
 
 .djs__gallery img{
     width: 300px;
@@ -452,6 +481,11 @@ img{
     width: 40%;
 }
 
+@media screen and (max-width:768px){
+    .tickets .subtitle{
+        width: 100%;
+    }   
+}
 .tickets__price{
     background-color: #24243C;
     padding:calc( var(--padding-section) - 3rem);
@@ -481,19 +515,15 @@ img{
 .tickets__value li.tickets__value--only{
     margin-right: 0;
 }
-
 .text--red{
     color:#E35A78;
 }
-
 .text--pink{ 
     color: #E25ABC;
 } 
-
 .text--purple{ 
     color: #7E5AE2;
 }
-
 .tickets__number{
     color:var(--secundary-color);
     font-size: 3rem;
@@ -516,6 +546,12 @@ img{
     padding-top: var(--padding-section);
     padding-bottom: var(--padding-section);
     color: var(--white-color);
+}
+
+@media screen and (max-width:768px){
+    .sponsors__gallery div div img{ 
+        width: 100%;
+    }   
 }
 
 .gallery{
